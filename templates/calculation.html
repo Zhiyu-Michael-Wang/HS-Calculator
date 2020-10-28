@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}HS Calculator{% endblock %}
+{% block content %}
+<form action="#" method="POST">
+
+    <div class="input-group mb-3">
+        
+        <div class="input-group-prepend">
+          <span class="input-group-text lang" id="basic-addon2" key="STARS">Stars</span>
+        </div>
+        <input name="total_winning_needed" type="text" class="form-control" placeholder="[1~150]" aria-describedby="basic-addon2">
+    </div>
+    <div class="input-group mb-3">
+        
+        <div class="input-group-prepend">
+          <span class="input-group-text lang" id="basic-addon2" key="STARS/WIN">Stars/Win</span>
+        </div>
+        <input name="winning_star_bounce" type="text" class="form-control" placeholder="[1~11]" aria-describedby="basic-addon2">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text lang" id="basic-addon2" key="WIN_RATE">Win rate</span>
+        </div>
+        <input name="winning_rate" type="text" class="form-control" placeholder="[0~100]" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <span class="input-group-text lang" id="basic-addon2">%</span>
+        </div>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text lang" for="inputGroupSelect01" key="D5TOL">Will go through Diamond5 to Legendary?</label>
+        </div>
+        <select name="five_to_one" class="custom-select" id="inputGroupSelect01">
+          <option selected class="lang" key="CHOOSE...">Choose...</option>
+          <option value="Yes" class="lang" key="YES">Yes</option>
+          <option value="No" class="lang" key="NO">No</option>
+        </select>
+      </div>
+    <div style="text-align: right;">
+        <input class="lang btn btn-info" key="SUBMIT" type="submit" />
+    </div>
+    <p style="margin-top: 20px;">
+      <a class="lang btn btn-primary" value="Help" key="HELP" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        
+      </a>
+      <a href="https://www.iyingdi.com/web/bbspost/detail/2221009" class="lang btn btn-light" key="MY_LINK" ></a>
+
+    </p>
+    
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        <p class="lang" key="H_EXAMPLE"></p>
+        <img class="help_img" src="{{ url_for('static', filename='winrate_hdt.PNG') }}" />
+        <p class="lang" key="H_WIN_RATE"></p>
+        <img class="help_img" src="{{ url_for('static', filename='win_streak.PNG') }}" />
+        <p class="lang" key="H_WIN_STREAK"></p>
+        <p class="lang" key="H_DIAMOND"></p>
+        <p class="lang" key="H_NEED"></p>
+      </div>
+    </div>
+    
+    
+</form>
+{% endblock %}
+

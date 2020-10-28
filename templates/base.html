@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    {% endblock %}
+    <style>
+        body {
+            background-color: rgb(247, 255, 255);
+            overflow-x: hidden;
+        }
+
+        .wrapper {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            
+            background-color: rgb(213, 255, 241);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .content {
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        footer {
+            margin-top: 30px;
+        }
+
+        header {
+            margin-bottom: 60px;
+        }
+
+        @media only screen and (min-width: 1023px) {
+            .wrapper {
+                margin-left: 20%;
+                margin-right: 20%;
+            }
+        }
+
+        @media only screen and (max-width: 1022px) {
+            .wrapper {
+                margin-left: 2%;
+                margin-right: 2%;
+            }
+        }
+
+       
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <h1 class="lang" key="TITLE">Hearthstone Game-to-play Calculator</h1>
+            <p>--by Zhiyu</p>
+        </header>
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <footer>
+            {% block footer %}
+            {% endblock %}
+            <div>
+                <button class="translate" id="en">English</button>
+                <button class="translate" id="zh">中文</button>
+            </div>
+            
+            
+        </footer>   
+    </div>
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script>
+        var arrLang = {
+            "en": {
+                "STARS": "Stars needed",
+                "STARS/WIN": "Star bounce",
+                "D5TOL": "Will go through Diamond5 to Legend?",
+                "CHOOSE...": "Choose...",
+                "YES": "Yes",
+                "NO": "No",
+                "TITLE": "Hearthstone Game-to-play Calculator",
+                "WIN_RATE": "Win rate",
+                "SUBMIT": "Submit",
+                "HELP": "Help",
+                "H_WIN_RATE": "--Win Rate--  You may get your win rate for a certain deck from Hearthstone extension apps like Hearthstone Deck Tracker (as circled in the image above: 53)",
+                "H_WIN_STREAK": "--Star Bounce--  You may get your current star bounce in game (as circled in the image above: 8)",
+                "H_DIAMOND": "--Diamond 5 to Legend--  When you are going through this process, you would not gain double stars for winning more than 3 times in a row",
+                "H_NEED": "--Stars Needed--  Climbing up a rank (from Diamond 5 to Diamond 4) requires 3 stars. Climbing up a league (from Diamond 10 to Legend) require 30 stars",
+                "H_EXAMPLE": "--Example--  You may use these numbers to test the calculator -> star needed: 100, star bounce: 5, win rate: 60, Diamond 5 to Legend: Yes",
+                "MY_LINK": "Learn more about this calculator from my post in LvFaShiYingDi",
+                "H_EXAMPLE_GRAPH": "This is an explanation of the graph (using the example from the pervious help section)"
+            },
+            "zh": {
+                "STARS": "需要的星数",
+                "STARS/WIN": "奖励星数",
+                "D5TOL": "会经过钻5到传说吗？",
+                "CHOOSE...": "选择...",
+                "YES": "是",
+                "NO": "否",
+                "TITLE": "炉石传说冲段位所需场数计算器",
+                "WIN_RATE": "胜率",
+                "SUBMIT": "提交",
+                "HELP": "帮助",
+                "H_WIN_RATE": "--胜率--  你可以在像HDT之类的软件中获得你某个卡组的胜率（如上图中红圈圈出部分: 53）",
+                "H_WIN_STREAK": "--奖励星数--  你可以在游戏中得到你的奖励星数（如上图中红圈圈出部分: 8）",
+                "H_DIAMOND": "--钻五到传说--  当你的段位大于钻五时你不会因为3连胜而获得双倍星数奖励",
+                "H_NEED": "--需要的星数--  当你升一个小段位（钻5到钻4）需要3颗星，当你升一个大段位（钻10到传说）需要30颗星",
+                "H_EXAMPLE": "--例子--  你可以用这个例子来测试本计算器 -> 需要星数: 100, 奖励星数: 5, 胜率: 60, 钻五到传说: 是",
+                "MY_LINK": "在我旅法师营地的帖子中更多的了解本计算器",
+                "H_EXAMPLE_GRAPH": "这是读图的方法（使用之前“帮助”部分所给的例子）"
+            }
+        };
+        
+        // The default language is Chinese
+        var lang = "en";
+        // Check for localStorage support
+        if('localStorage' in window){
+            var lang = localStorage.getItem('lang') || navigator.language.slice(0, 2);
+            if (!Object.keys(arrLang).includes(lang)) lang = 'en';
+        }
+        
+        $(document).ready(function() {
+            $(".lang").each(function(index, element) {
+            $(this).text(arrLang[lang][$(this).attr("key")]);
+            });
+        });
+        
+        // get/set the selected language
+        $(".translate").click(function() {
+            var lang = $(this).attr("id");
+        
+            // update localStorage key
+            if('localStorage' in window){
+            localStorage.setItem('lang', lang);
+            console.log( localStorage.getItem('lang') );
+            }
+        
+            $(".lang").each(function(index, element) {
+            $(this).text(arrLang[lang][$(this).attr("key")]);
+            });
+        });
+    </script>
+</body>
+</html>

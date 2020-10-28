@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Result{% endblock %}
+{% block content %}
+    <img src="{{ file_url }}" />
+
+    <p style="margin-top: 20px;">
+        <a class="lang btn btn-primary" value="Help" key="HELP" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
+            
+        </a>
+        <a href="https://www.iyingdi.com/web/bbspost/detail/2221009" class="lang btn btn-light" key="MY_LINK" ></a>
+
+    </p>
+    
+    <div class="collapse" id="collapseExample2">
+        <div class="card card-body">
+            <p class="lang" key="H_EXAMPLE_GRAPH"></p>
+            <img src="{{ url_for('static', filename='help_graph.PNG') }}" />
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    <!-- <a href="/" class="back_button">Back</a> -->
+    <div style="text-align: right;">
+        <a href="/" class="btn btn-info btn-lg lang" role="button" aria-pressed="true" key="BACK">Back</a>
+    </div>
+
+    
+{% endblock %}
